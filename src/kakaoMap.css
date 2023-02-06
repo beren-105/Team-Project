@@ -1,0 +1,33 @@
+
+
+.kakaoMap {
+    display: flex;
+    position: relative;
+}
+
+.kakaoMap .mapToggle {
+    position: absolute;    
+    left: 10px;
+    top: 10px;
+    z-index: 10;
+    border: none;
+    box-shadow: 1px 3px 5px rgba(0 0 0 / 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.kakaoMap .mapToggle svg {
+    width: 15px;
+    padding: 0.3rem;
+}
+
+.kakaoMap .map {
+    display: flex;
+    width: 100%;
+}
+
+.kakaoMap .map .mapMarker {
+    width: 150px;
+    text-align: center;
+}
+
+.hidden {display: none;}
