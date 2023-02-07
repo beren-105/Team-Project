@@ -1,8 +1,75 @@
+/* 상단비주얼 */
 
-
-.kakaoMap {
-    display: flex;
+.main {
     position: relative;
+    width: 100%;
+    height: 200px;
+    background-color: cadetblue;
+    overflow: hidden;
+}
+
+.main::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    background-color: rgba(0 0 0 / 0.4);
+    width: 100%;
+    height: 100%;
+}
+
+.main img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.main .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    z-index: 1;
+    text-align: center;
+}
+.main .title h4 {
+    margin-bottom: 0.25rem;
+    font-weight: normal;
+}
+.main .title h2 {
+    margin-top: 0;
+    font-size: 2rem;
+}
+
+
+/* 하단 비주얼1 */
+.sub {
+    max-width: 992px;
+    margin: 50px auto 80px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub .subImg {
+    object-fit: cover;
+    margin-right: 30px;
+}
+
+.sub .subContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sub .subContent .subTitle h4 {margin-bottom: 0.25rem;}
+.sub .subContent .subTitle h3 {margin: 0;}
+
+
+/* 지도 */
+.kakaoMap {
+    max-width: 992px;
+    margin: 30px auto;
 }
 
 .kakaoMap .mapToggle {
@@ -23,11 +90,59 @@
 .kakaoMap .map {
     display: flex;
     width: 100%;
+    position: relative;
+    flex-direction: column;
 }
 
-.kakaoMap .map .mapMarker {
+/* .kakaoMap .map .mapMarker {
     width: 150px;
     text-align: center;
+} */
+
+.mapMarker {
+    position: absolute;
+    bottom: -30px;
+    left: -25px;
+    width: 200px;
+    height: 130px;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow: hidden;
 }
 
+.mapMarker .markerTitle {
+    text-align: center;
+    padding: 0.5rem;
+    background-color: rgb(211, 96, 43);
+    color: #fff;
+}
+
+.mapMarker .markerText {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+.mapMarker .markerText p {
+    font-size: 0.75rem;
+}
+
+.mapMarker .markerText img {
+    width: 70px;
+    height: 70px;
+    margin-right: 0.25rem;
+    object-fit: cover;
+}
+
+
+
 .hidden {display: none;}
+
+
+@media (min-width:576px ) {
+    .kakaoMap .map, .sub {
+        flex-direction: row;
+    }
+}
