@@ -2,10 +2,11 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, Outlet, useParams } from "react-router-dom"
 import React, {useState, useEffect} from 'react';
 
+//맵
 import KakaoMap from "./KakaoMap" 
+import Chart from "./Chart" 
 
 function fetchData() {
-
 
   const promise = fetch(`https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${process.env.REACT_APP_API_KEY}&pageNo=1&numOfRows=10&resultType=json`)
 
@@ -49,9 +50,12 @@ export default function App() {
   
   return (
     <>
-      <KakaoMap
+      <Chart
         data={data}
       />
+      {/* <KakaoMap
+        data={data}
+      /> */}
     </>
   )
 }
