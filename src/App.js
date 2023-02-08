@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link, Outlet, useParams } from 
 import React, {useState, useEffect} from 'react';
 
 //맵
-import KakaoMap from "./KakaoMap" 
-import Chart from "./Chart" 
+import KakaoMap from "./KakaoMap/KakaoMap" 
+import Chart from "./Chart/Chart" 
 
 function fetchData() {
 
