@@ -16,6 +16,9 @@ export default function Chart(props) {
 
   return (
     <div style={{margin: "1rem"}}>
+      
+      <button onClick={()=> props.setToggle(!props.toggle)}>닫기</button>
+
       <h1 style={{textAlign: "center"}}>부산에 맛집이 가장 많은 곳은?</h1>
 
       {data.getFoodKr.totalCount > 0 ? (

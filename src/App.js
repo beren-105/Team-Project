@@ -2,13 +2,13 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, Outlet, useParams } from "react-router-dom"
 import React, {useState, useEffect} from 'react';
 
-//맵
+// 각 파일 불러오기
+import Home from "./router/Home";
 import KakaoMap from "./KakaoMap/KakaoMap" 
-import Chart from "./Chart/Chart" 
+import Chart from "./Chart/Chart"
 
 function fetchData() {
-
-  const promise = fetch(`https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${process.env.REACT_APP_API_KEY}&pageNo=1&numOfRows=10&resultType=json`)
+  const promise = fetch(`https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${process.env.REACT_APP_API_KEY}&pageNo=1&numOfRows=150&resultType=json`)
 
     .then(res => {
       if (!res.ok) {
@@ -16,7 +16,6 @@ function fetchData() {
       }
       return res.json()
     })
-   
     return promise;
 }
 
@@ -24,8 +23,8 @@ export default function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState(null);
+  const [listId, setListId] = useState(null)
 
-  // console.log(data);
 
   useEffect(() => {
     fetchData()
@@ -36,7 +35,7 @@ export default function App() {
         setError(error)
       })
       .finally(() => setIsLoaded(true))
-  }, []) // 한번만 실행하기 때문에 빈 어레이가 있어야한다.
+  }, [])
 
   if (error) {
     return <p>failed to fetch</p>
@@ -46,18 +45,54 @@ export default function App() {
     return <p>fetching data...</p>
   }
 
-  
-  
+
   return (
     <>
-      <Chart
-        data={data}
-      />
-      {/* <KakaoMap
-        data={data}
-      /> */}
+    <Router>
+      <Routes>
+        <Route path='/' element={
+          <Layout
+            data={data}
+            listId={listId}
+            setListId={setListId}
+          />}
+        />
+        <Route path='map' element={<KakaoMap data={data} />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+    </Router>
     </>
   )
 }
 
+// 홈&차트
+function Layout(props) {
+  const data=props.data
+  const listId=props.listId
+  const setListId=props.setListId
 
+  const [toggle, setToggle] = useState(false)
+  return (
+    <>
+      <button onClick={() => setToggle(!toggle)}>열기</button>
+      <Home
+        data={data}
+        listId={listId}
+        setListId={setListId}
+      />
+      {toggle ?
+        <Chart
+          data={data}
+          toggle={toggle}
+          setToggle={setToggle}
+        />
+        : null}
+      
+    </>
+  )
+}
+
+//페이지를 찾을 수 없을 시
+function NotFound() {
+  return <p>404 Not Found</p>
+}

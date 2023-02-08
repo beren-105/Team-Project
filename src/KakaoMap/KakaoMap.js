@@ -2,15 +2,24 @@
  import { useEffect, useRef, useState } from 'react';
  import {Map, MapMarker, MapInfoWindow, Roadview, RoadviewMarker } from 'react-kakao-maps-sdk';
  import {MapMarker as CustomOverlayMap } from 'react-kakao-maps-sdk';
+import { Link, useLocation } from 'react-router-dom';
  
  import "./kakaoMap.css"
  
  function KakaoMap(props) {
-     const data = props.data.getFoodKr.item[0]
+     const Alldata = props.data
+     const location = useLocation()
+     const id = location.state.id
+    //  console.log(id)
+
+     const filterArray = Alldata.getFoodKr.item.filter((items)=> {
+        return items.ADDR1 == id
+      })
+     const data = filterArray[0]
+    
+
      const [toggle, setToggle] = useState(false)
      const [size, setSize] = useState('992px')
-
-     // console.log(data)
  
      const mapPosition = {
          lat: data.LAT,
@@ -51,24 +60,26 @@
  
      return (  
          <>
-         <section className='main'>
+         <Link to='/'>
+            <button>뒤로가기</button>
+         </Link>
+         <section>
              <img
                  src={data.MAIN_IMG_NORMAL}
                  alt={data.MAIN_TITLE}
              />
-             <div className='title'>
+             <div>
                  <h4>{data.GUGUN_NM}</h4>
                  <h2>{data.MAIN_TITLE}</h2>
              </div>
          </section>
-         <section className='sub'>
+         <section>
              <img
-                className='subImg'
                  src={data.MAIN_IMG_THUMB}
                  alt={data.MAIN_TITLE}
              />
-             <div className='subContent'>
-                 <div className='subTitle'>
+             <div>
+                 <div>
                      <h4>대표메뉴</h4>
                      <h3>{data.RPRSNTV_MENU}</h3>
                  </div>
@@ -97,15 +108,12 @@
                         level={4}
                         ref={mapRef}
                     >
-                        {/* <MapMarker position={mapPosition}>
-                            <div className='mapMarker'>{data.MAIN_TITLE}</div>
-                        </MapMarker> */}
                         <CustomOverlayMap
                             position={mapPosition}
                         >
                             <div className='mapMarker'>
-                                <div className='markerTitle'>{data.MAIN_TITLE}</div>
-                                <div className='markerText'>
+                                <div>{data.MAIN_TITLE}</div>
+                                <div>
                                     <img
                                         src={data.MAIN_IMG_THUMB}
                                     />
@@ -113,7 +121,6 @@
                                 </div>
                             </div>
                         </CustomOverlayMap>
-                        {/* <MapTypeId type={kakao.maps.MapTypeId.ROADVIEW}/> */}
                     </Map>
     
                 {/* 로드뷰 */}
@@ -140,7 +147,6 @@
                         </Roadview>
                     </div>
                 </div>
-            <p>주소 : {data.ADDR1}</p>
             </div>
          </>
      )
