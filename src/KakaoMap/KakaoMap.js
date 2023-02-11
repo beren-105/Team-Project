@@ -1,8 +1,7 @@
  /*global kakao*/ 
  import { useEffect, useRef, useState } from 'react';
  import {Map, MapMarker, MapInfoWindow, Roadview, RoadviewMarker } from 'react-kakao-maps-sdk';
- import {MapMarker as CustomOverlayMap } from 'react-kakao-maps-sdk';
-import { Link, useLocation } from 'react-router-dom';
+ import { Link, useLocation } from 'react-router-dom';
  
  import "./kakaoMap.css"
  
@@ -10,7 +9,6 @@ import { Link, useLocation } from 'react-router-dom';
      const Alldata = props.data
      const location = useLocation()
      const id = location.state.id
-    //  console.log(id)
 
      const filterArray = Alldata.getFoodKr.item.filter((items)=> {
         return items.ADDR1 == id
@@ -19,13 +17,25 @@ import { Link, useLocation } from 'react-router-dom';
     
 
      const [toggle, setToggle] = useState(false)
+     const [markerInfo, setMarkerInfo] = useState(true)
      const [size, setSize] = useState('992px')
+     const [level, setLevel] = useState(4)
+     const [resetRoadview, setResetRoadview] = useState()
+     const roadviewRef = useRef()
+     const mapRef = useRef()
  
      const mapPosition = {
          lat: data.LAT,
          lng: data.LNG
      }
  
+     useEffect(() => {
+        if (mapRef.current) {
+            mapRef.current.relayout()
+            mapRef.current.setCenter(new kakao.maps.LatLng(data.LAT, data.LNG))
+        }
+    }, [toggle, size])
+
     //  로드뷰 마커 포커스 이벤트
      function markerCenter(marker) {
          const rv = marker.getMap()
@@ -38,8 +48,8 @@ import { Link, useLocation } from 'react-router-dom';
          rv.relayout()
      }
      
-     const mapRef = useRef()
- 
+
+     // 리사이징 이벤트
      function mapCenter(toggle) {
          setToggle(toggle)
          if (toggle) {
@@ -49,15 +59,24 @@ import { Link, useLocation } from 'react-router-dom';
              setSize('992px')
          }
      }
+
+     // 지도 초기화버튼
+     function mapReset() {
+        mapRef.current.setCenter(new kakao.maps.LatLng(data.LAT, data.LNG))
+     }
      
-     useEffect(() => {
-         if (mapRef.current) {
-             mapRef.current.relayout()
-             mapRef.current.setCenter(new kakao.maps.LatLng(data.LAT, data.LNG))
-         }
-     }, [toggle, size])
+     // 로드뷰 초기화
+     function viewReset() {
+        const roadview = roadviewRef.current
+        roadview.setViewpoint(resetRoadview.viewpoint)
+        roadview.setPanoId(
+            resetRoadview.panoid,
+            new kakao.maps.LatLng(data.LAT, data.LNG)
+        )
+     }
+     
  
- 
+     
      return (  
          <>
          <Link to='/'>
@@ -93,25 +112,36 @@ import { Link, useLocation } from 'react-router-dom';
             <h4>오시는 길</h4>
                 
                 <div className='map'>
-                    <button
-                        className='mapToggle'
-                        onClick={() => mapCenter(!toggle)}
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/></svg>
-                    </button>
+                    <div className='mapBtn'>
+                        <button
+                            onClick={() => mapCenter(!toggle)}  
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/></svg>
+                            <span>로드뷰</span>
+                        </button>
+                        <button onClick={() => mapReset()}>지도 초기화</button>
+                        <button onClick={() => setLevel(level-1)}>+</button>
+                        <button onClick={() => setLevel(level+1)}>-</button>
+                    </div>
                     <Map
                         center={mapPosition}
                         style={{
                             width: `${size}`,
                             height: "360px",
                         }}
-                        level={4}
+                        level={level}
                         ref={mapRef}
                     >
-                        <CustomOverlayMap
+                        <MapMarker
                             position={mapPosition}
+                            onClick={() => setMarkerInfo(!markerInfo)}
+                            xAnchor={0.5}
+                            yAnchor={1.5}
                         >
-                            <div className='mapMarker'>
+                            {markerInfo ?
+                            <div
+                                className='mapMarker'
+                            >
                                 <div>{data.MAIN_TITLE}</div>
                                 <div>
                                     <img
@@ -120,11 +150,18 @@ import { Link, useLocation } from 'react-router-dom';
                                     <p>{data.ADDR1}</p>
                                 </div>
                             </div>
-                        </CustomOverlayMap>
+                            :null}
+                        </MapMarker>
                     </Map>
     
                 {/* 로드뷰 */}
-                    <div className={`roadview ${toggle ? null : 'hidden'}`}>
+                    <div style={{display: `${toggle ? 'block' : 'none'}`, position: 'relative'}}>
+                        <button
+                            className='mapBtn'
+                            onClick={() => viewReset()}
+                        >
+                            지도 초기화
+                        </button>
                         <Roadview
                         position={{
                             lat: data.LAT,
@@ -134,6 +171,20 @@ import { Link, useLocation } from 'react-router-dom';
                         style={{
                             width: "496px",
                             height: "360px",
+                        }}
+                        ref={roadviewRef}
+                        onInit={(roadview) => {
+                            const viewpoint = roadview
+                            .getProjection()
+                            .viewpointFromCoords(
+                                new kakao.maps.LatLng(data.LAT, data.LNG),
+                                0
+                            )
+                            roadview.setViewpoint(viewpoint)
+                            setResetRoadview({
+                            viewpoint: viewpoint,
+                            panoid: roadview.getPanoId(),
+                            })
                         }}
                         >
                             <RoadviewMarker

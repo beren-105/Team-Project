@@ -23,7 +23,6 @@ export default function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState(null);
-  const [listId, setListId] = useState(null)
 
 
   useEffect(() => {
@@ -53,8 +52,6 @@ export default function App() {
         <Route path='/' element={
           <Layout
             data={data}
-            listId={listId}
-            setListId={setListId}
           />}
         />
         <Route path='map' element={<KakaoMap data={data} />} />
@@ -74,7 +71,7 @@ function Layout(props) {
   const [toggle, setToggle] = useState(false)
   return (
     <>
-      <button onClick={() => setToggle(!toggle)}>열기</button>
+      {toggle ? null : <button onClick={() => setToggle(!toggle)}>열기</button>}
       <Home
         data={data}
         listId={listId}

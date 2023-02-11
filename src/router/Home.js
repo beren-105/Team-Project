@@ -5,7 +5,6 @@ import marker from "./img/marker.png";
 import map from "./img/map.png";
 
 export default function Home(props) {
-  const setListId=props.setListId
 
   const guName = [
     "중구",
@@ -69,7 +68,6 @@ export default function Home(props) {
               title={item.MAIN_TITLE}
               address={item.ADDR1}
               keyword={item.RPRSNTV_MENU.split(",")[0]}
-              setListId={setListId}
             />
           ))}
         </ul>

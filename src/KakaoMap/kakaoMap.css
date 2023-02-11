@@ -6,47 +6,39 @@
     width: 100%;
 }
 
-.kakaoMap .mapToggle {
-    position: absolute;    
-    left: 10px;
-    top: 10px;
-    z-index: 10;
-    border: none;
-    box-shadow: 1px 3px 5px rgba(0 0 0 / 0.3);
-    border-radius: 5px;
-    cursor: pointer;
-}
-.kakaoMap .mapToggle svg {
-    width: 15px;
-    padding: 0.3rem;
-}
-
 .kakaoMap .map {
     display: flex;
     width: 100%;
     position: relative;
 }
 
+.mapBtn {
+    position: absolute;    
+    left: 10px;
+    top: 10px;
+    z-index: 10;
+}
+.kakaoMap .mapBtn svg {
+    width: 15px;
+    padding: 0.3rem;
+}
 
-/* 지도 위에 사진 및 글씨 넣는거 지워도 상관 xxx */
+
+
+/* 아래부터는 지도 위에 사진 및 글씨 넣는거 / 지워도 상관 xxx */
 /* 카카오 기본 디자인에 새로운 디자인을 div로 덧씌워야해서 편의상 틀만 잡아뒀습니다 */
+
 .mapMarker {
     position: absolute;
-    bottom: -30px;
     left: -25px;
+    bottom: -25px;
     width: 200px;
     height: 130px;
+    border-radius: 10px;
     background-color: #fff;
     overflow: hidden;
 }
 
-.mapMarker .markerText img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-}
 
 
-
-.hidden {display: none;}
 
