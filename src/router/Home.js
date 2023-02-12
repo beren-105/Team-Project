@@ -42,6 +42,10 @@ export default function Home(props) {
 
   return (
     <div className="total">
+      <div>
+        <h2></h2>
+        <p></p>
+      </div>
       <img src={map} className="map" />
       {guName.map((item, index) => (
         <div key={item} id={`num` + index} className="marker">
@@ -59,8 +63,13 @@ export default function Home(props) {
       {loading ? (
         <p>Please Waiting</p>
       ) : (
-        <ul>
-          {onCl === "" ? null : <button onClick={close}>close</button>}
+        <ul className="list_main">
+          {onCl === "" ? null : <>
+          <button id="closeLi" className="close" onClick={close}>close</button>
+          <li className="list_top">LIST</li>
+          </>
+          }
+          
           {show.map((item, index) => (
             <List
               key={index}

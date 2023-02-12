@@ -1,29 +1,141 @@
+:root {
+    --color-red : #e24f35;
+}
+
+.back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    z-index: 20;
+    background-color: #fff;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 상단 비주얼 */
+
+.mapMain {
+    display: flex;
+    width: 100vw;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapMain img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.mapMain::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0 0 0 /0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.mainTitle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    color: #fff
+}
+
+.mainTitle h4, h2 {
+    margin: 0;
+    margin-bottom: 0.25rem;
+}
+
+.mainTitle h2 {
+    color: var(--color-red);
+    font-size: 2.2rem;
+}
+
+
+/* 하단 비주얼 */
+.mapSub {
+    display: flex;
+    max-width: 992px;
+    margin: 50px auto;
+    align-items: center;
+}
+
+.mapSub img {
+    margin-right: 30px;
+}
+
 
 /* 지도 */
 
 /* 토글 기능구현으로 인해 필요한 css */
 .kakaoMap {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .kakaoMap .map {
     display: flex;
     width: 100%;
     position: relative;
+    top: 0;
+    left: 0;
+}
+
+.btn {
+    border: 1px solid #aaa;
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+    margin: 0.5rem 0 0.5rem 0.5rem;
 }
 
 .mapBtn {
     position: absolute;    
-    left: 10px;
-    top: 10px;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    display: flex;
+}
+
+.mapBtn2 {
+    position: absolute;
+    left: 0;
+    bottom: 0;
     z-index: 10;
 }
-.kakaoMap .mapBtn svg {
+
+.mapBtn2 button {
+    width: 30px;
+    height: 30px;
+}
+
+.mapBtn .roadviewToggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mapBtn .roadviewToggle svg {
     width: 15px;
     padding: 0.3rem;
 }
 
-
+.mapBtn .roadviewToggle span {
+    font-size: 0.75rem;
+}
 
 /* 아래부터는 지도 위에 사진 및 글씨 넣는거 / 지워도 상관 xxx */
 /* 카카오 기본 디자인에 새로운 디자인을 div로 덧씌워야해서 편의상 틀만 잡아뒀습니다 */
@@ -39,6 +151,23 @@
     overflow: hidden;
 }
 
+.markerTitle {
+    text-align: center;
+    padding: 0.5rem;
+    background-color: var(--color-red);
+    color: #fff;
+}
 
-
+.markerContent {
+    display: flex;
+    padding: 0.5rem;
+}
+.markerContent img {
+    width: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.markerContent p {
+    display: inline-block;
+}
 

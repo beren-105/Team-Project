@@ -9,32 +9,37 @@ import {
   Legend,
   ResponsiveContainer
 } from "recharts";
+import "./style.css";
+
 
 
 export default function Chart(props) {
-  const data = props.data
-
+  const data = props.data;
+console.log(props.toggle);
   return (
-    <div style={{margin: "1rem"}}>
-      
-      <button onClick={()=> props.setToggle(!props.toggle)}>닫기</button>
+    <div className='main' >
+      <div className='modal'>
 
-      <h1 style={{textAlign: "center"}}>부산에 맛집이 가장 많은 곳은?</h1>
+      <button className='close' onClick={()=> props.setToggle(!props.toggle)}>CLOSE</button>
+
+      <h1>부산에 맛집이 가장 많은 곳은?</h1>
 
       {data.getFoodKr.totalCount > 0 ? (
-        <>
-          <h2>요약</h2>
+        <div className='charCon'>
+          {/* <h2>요약</h2>
           <p>
             총 {data.getFoodKr.totalCount}개의 맛집이 있습니다. <br />
             그중 맛집이 많은 곳입니다.
-          </p>
+          </p> */}
 
-          <h2>Chart</h2>
+          <h2 className='title'>CHART</h2>
           <Rechart accidents={data.getFoodKr.item} />
-        </>
+        </div>
       ):(
         <p>맛집이 없습니다</p>
       )}
+      </div>
+      
     </div>
   )
 }
@@ -82,7 +87,7 @@ function Rechart({accidents}) {
   // console.log(data);
 
   return (
-    <div style={{ height: "300px" }}>
+    <div className ='chart'>
       <ResponsiveContainer width="95%" height="100%">
         <BarChart
           width={500}
@@ -90,11 +95,11 @@ function Rechart({accidents}) {
           data={data}
           margin={{top: 5, right: 30, left: 20, bottom: 5}}>
             <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-            <XAxis dataKey="name" stroke="#ff4646"/>
-            <YAxis stroke="#ff4646"/>
+            <XAxis dataKey="name" stroke="##A6A6A6"/>
+            <YAxis stroke="#A6A6A6"/>
             <Tooltip />
             <Legend />
-            <Bar dataKey="맛집수" fill="#ffc658" barSize={60} />
+            <Bar dataKey="맛집수" fill="#f44336" barSize={60} />
           </BarChart>
       </ResponsiveContainer>
     </div>

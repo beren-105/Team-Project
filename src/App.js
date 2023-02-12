@@ -68,7 +68,7 @@ function Layout(props) {
   const listId=props.listId
   const setListId=props.setListId
 
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
   return (
     <>
       {toggle ? null : <button onClick={() => setToggle(!toggle)}>열기</button>}

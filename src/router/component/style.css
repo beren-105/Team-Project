@@ -1,0 +1,49 @@
+h3 {
+    font-size: 20px;
+}
+.list_main li {
+    list-style: none;
+    padding-left: 2rem;
+    width: 91%;
+    background-color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #F2F2F2;
+  
+}
+.content_font {
+    font-size: 12px;
+    color: #7F7F7F;
+    margin: 0.2rem 0 0.2rem 0;
+
+}
+.nameTitle {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0.2rem 0 0.2rem 0;
+
+}
+.list_top {
+   width: 30%;
+   font-size: 20px;
+   font-weight: 800;
+   margin: 0.3rem 0 0.3rem 32%;
+
+}
+.list_main::-webkit-scrollbar {
+    width: 5px;  /* 스크롤바의 너비 */
+}
+
+.list_main::-webkit-scrollbar-thumb {
+    height: 10%; /* 스크롤바의 길이 */
+    background: #707070; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+.list_main::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
