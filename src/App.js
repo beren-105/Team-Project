@@ -71,11 +71,13 @@ function Layout(props) {
   const [toggle, setToggle] = useState(false);
   return (
     <>
-      {toggle ? null : <button onClick={() => setToggle(!toggle)}>열기</button>}
+      {/* {toggle ? null : <button onClick={() => setToggle(!toggle)}>열기</button>} */}
       <Home
         data={data}
         listId={listId}
         setListId={setListId}
+        toggle={toggle}
+        setToggle={setToggle}
       />
       {toggle ?
         <Chart

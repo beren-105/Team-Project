@@ -41,10 +41,13 @@ export default function Home(props) {
   };
 
   return (
+    <>
+    
     <div className="total">
-      <div>
-        <h2></h2>
-        <p></p>
+      <div className="new">
+        <h3>구 이름을 <span>클릭</span>해보세요!</h3>
+        <p>내가 놀러가는 곳의 맛집을 한눈에 볼 수 있는 어쩌구 사이트 설명</p>
+        {props.toggle ? null : <button onClick={() => props.setToggle(!props.toggle)}>차트<br />보러가기</button>}
       </div>
       <img src={map} className="map" />
       {guName.map((item, index) => (
@@ -82,5 +85,6 @@ export default function Home(props) {
         </ul>
       )}
     </div>
+    </>
   );
 }
