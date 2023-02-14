@@ -80,7 +80,7 @@
      return (  
          <>
          <Link to='/'>
-            <button className='back'>뒤로가기</button>
+            <button className='back'>BACK</button>
          </Link>
          <section className='mapMain'>
              <img
@@ -103,7 +103,7 @@
                      <h4>대표메뉴</h4>
                      <h3>{data.RPRSNTV_MENU}</h3>
                  </div>
-                 <p>{data.ITEMCNTNTS}</p>
+                 <p className='textarea'>{data.ITEMCNTNTS}</p>
              </div>
          </section>
  

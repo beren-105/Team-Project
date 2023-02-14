@@ -46,8 +46,8 @@ export default function Home(props) {
     <div className="total">
       <div className="new">
         <h3>구 이름을 <span>클릭</span>해보세요!</h3>
-        <p>내가 놀러가는 곳의 맛집을 한눈에 볼 수 있는 어쩌구 사이트 설명</p>
-        {props.toggle ? null : <button onClick={() => props.setToggle(!props.toggle)}>차트<br />보러가기</button>}
+        <p>내가 놀러가는 곳의 맛집을 한눈에 볼 수 있는 부산 맛집 사이트입니다 가장 맛집이 많은 구는 어디일까요?</p>
+        {props.toggle ? null : <button onClick={() => props.setToggle(!props.toggle)}>CHART</button>}
       </div>
       <img src={map} className="map" />
       {guName.map((item, index) => (
@@ -68,7 +68,7 @@ export default function Home(props) {
       ) : (
         <ul className="list_main">
           {onCl === "" ? null : <>
-          <button id="closeLi" className="close" onClick={close}>close</button>
+          <button id="closeLi" className="close" onClick={close}>CLOSE</button>
           <li className="list_top">LIST</li>
           </>
           }
